@@ -6,3 +6,4 @@ libraryDependencies <+= scalaVersion { s =>
 
 libraryDependencies += "org.scalatest" %% "scalatest" % "2.2.+" % "test"
 
+scalacOptions ++= Seq("-deprecation")

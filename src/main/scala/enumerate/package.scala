@@ -15,9 +15,11 @@ package object enumerate {
     val typeSmb = weakTypeTag[A].tpe.typeSymbol
 
     // sanity checks
-    if (!typeSmb.isClass) error(errorMsg)
+    if (!typeSmb.isClass) c.error(c.enclosingPosition, errorMsg)
     val classSmb = typeSmb.asClass
-    if (!classSmb.isAbstract || !classSmb.isSealed) error(errorMsg)
+    if (!classSmb.isAbstract || !classSmb.isSealed) c.error(c.enclosingPosition, errorMsg)
+
+    println(s"Known direct subclasses of $classSmb : ${classSmb.knownDirectSubclasses}")
 
     // Find all direct child case objects (filter out everything else)
     val subclassSymbols: Set[Symbol] = classSmb.knownDirectSubclasses
