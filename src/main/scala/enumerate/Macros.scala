@@ -35,9 +35,9 @@ object Macros {
     val typeSmb = weakTypeTag[A].tpe.typeSymbol
 
     // sanity checks
-    if (!typeSmb.isClass) error(errorMsg(methodName))
+    if (!typeSmb.isClass) c.error(c.enclosingPosition, errorMsg(methodName))
     val classSmb = typeSmb.asClass
-    if (!classSmb.isAbstract || !classSmb.isSealed) error(errorMsg(methodName))
+    if (!classSmb.isAbstract || !classSmb.isSealed) c.error(c.enclosingPosition, errorMsg(methodName))
 
     // Find all direct child case objects (filter out everything else)
     classSmb.knownDirectSubclasses
