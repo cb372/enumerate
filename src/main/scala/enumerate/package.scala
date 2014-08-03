@@ -28,7 +28,11 @@ package object enumerate {
     
     // Map from symbol name to the corresponding class
     val symbolsMap: Map[String, Tree] = 
-      subclassSymbols.map(s => (s.name.toString -> Ident(s.asClass.companionSymbol))).toMap
+      subclassSymbols.map(s => (s.name.toString -> Ident(s.asClass.companion.asClass.companion))).toMap
+    /*
+     * TODO work out why the above line works! 
+     * Using the companion's companion fixes the "object srctest.Car is not a value" compiler error.
+     */
 
     // Just do a lookup in the symbols map
     q"${symbolsMap}.get($name)"
